@@ -10,10 +10,27 @@
 
 &spi2 {
 	status = "okay";
+        cs-gpios = <&porta 18 0>;
 
-	spidev@0 {
-		status = "okay";
-	};
+        spidev@0 {
+                status = "disabled";
+        };
+
+        ili9488: ili9488@0{
+                compatible = "ilitek,ili9488";
+                reg = <0>;
+                status = "okay";
+                spi-max-frequency = <40000000>;
+                spi-cpol;
+                spi-cpha;
+                rotate = <90>; //This depends on your screen
+                fps = <60>;
+                rgb;
+                buswidth = <8>;
+                dc-gpios = <&porta 24 GPIO_ACTIVE_HIGH>;
+                reset-gpios = <&porta 23 GPIO_ACTIVE_LOW>;
+                debug = <0x4000000>;
+        };
 };
 
 &uart1 {
